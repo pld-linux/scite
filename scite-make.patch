@@ -1,59 +1,47 @@
---- scite-1.53/scite/gtk/makefile.orig	2003-05-02 13:42:54.000000000 +0200
-+++ scite-1.53/scite/gtk/makefile	2003-05-25 19:20:12.000000000 +0200
-@@ -39,9 +39,9 @@
- CXXBASEFLAGS=-W -Wall -DGTK -DSCI_LEXER -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS)
+--- scite-1.61/scite/gtk/makefile.orig	2004-07-29 21:14:01.293547008 +0000
++++ scite-1.61/scite/gtk/makefile	2004-07-29 21:13:27.303714248 +0000
+@@ -45,7 +45,7 @@
+ bindir=$(prefix)/bin
+ SYSCONF_PATH=$(prefix)/share/scite
+ 
+-INSTALL=install -o root -g root
++INSTALL=install
+ 
+ PROG	= ../bin/SciTE
+ 
+@@ -59,9 +59,9 @@
+ CXXBASEFLAGS=-W -Wall -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS)
  
  ifdef DEBUG
--CXXFLAGS=-DDEBUG -g $(CXXBASEFLAGS)
-+CXXFLAGS=-DDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
+-CXXTFLAGS=-DDEBUG -g $(CXXBASEFLAGS)
++CXXTFLAGS=-DDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
  else
--CXXFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS)
-+CXXFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
+-CXXTFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS)
++CXXTFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
  endif
  
- .cxx.o:
-@@ -55,12 +55,9 @@
+ ifndef NO_LUA
+@@ -97,13 +97,10 @@
  deps:
  	$(CC) -MM `$(CONFIGFLAGS)` $(CXXFLAGS) *.cxx ../src/*.cxx >deps.mak
  
 -# make should be run in ../../scintilla/gtk to compile all the lexers.
--LEXEROBJS=$(wildcard ../../scintilla/gtk/Lex*.o)
+-COMPLIB=../../scintilla/bin/scintilla.a
 -
- $(PROG): SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o DirectorExtension.o \
--SciTEProps.o Utf8_16.o $(LEXEROBJS) ../../scintilla/bin/scintilla.a
--	$(CC) `$(CONFIGLIB)` `glib-config --libs gthread` -DGTK $^ -o $@
-+SciTEProps.o Utf8_16.o
-+	$(CC) `$(CONFIGLIB)` `glib-config --libs gthread` -DGTK $^ -o $@ -lscintilla
+ $(PROG): SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o \
+ MultiplexExtension.o DirectorExtension.o SciTEProps.o Utf8_16.o \
+-	$(COMPLIB) $(LUA_OBJS)
+-	$(CC) `$(CONFIGLIB)` `$(CONFIGTHREADS)` -DGTK $^ -o $@
++	$(LUA_OBJS)
++	$(CC) `$(CONFIGLIB)` `$(CONFIGTHREADS)` -DGTK $^ -o $@ -lscintilla
  
- # SciTE-static no longer builds. Kept here in case of later need.
- SciTE-static: SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o SciTEProps.o \
-@@ -74,18 +71,17 @@
- # This is OK - just means no SciTE in the Gnome Applications menu
- # Dead:	install -D SciTEGTK.properties $(SYSCONF_PATH)/SciTEGlobal.properties
- install:
--	install -s $(PROG) $(bindir)
--	install -d $(SYSCONF_PATH)
--	install ../src/*.properties $(SYSCONF_PATH)
--	install ../doc/*.html $(SYSCONF_PATH)
--	install ../doc/SciTEIco.png $(SYSCONF_PATH)
--	install ../doc/PrintHi.png $(SYSCONF_PATH)
--ifndef GTK2
--	install SciTE.desktop $(datadir)/gnome/apps/Applications
--endif
--ifdef gnomeprefix
--	install Sci48M.png $(pixmapdir)
--endif
-+	install -d $(DESTDIR)$(bindir)
-+	install $(PROG) $(DESTDIR)$(bindir)
-+	install -d $(DESTDIR)$(SYSCONF_PATH)
-+	install ../src/*.properties $(DESTDIR)$(SYSCONF_PATH)
-+	install ../doc/*.html $(DESTDIR)$(SYSCONF_PATH)
-+	install ../doc/SciTEIco.png $(DESTDIR)$(SYSCONF_PATH)
-+	install ../doc/PrintHi.png $(DESTDIR)$(SYSCONF_PATH)
-+	install -d $(DESTDIR)$(datadir)/applications
-+	install SciTE.desktop $(DESTDIR)$(datadir)/applications
-+	install -d $(DESTDIR)$(pixmapdir)
-+	install Sci48M.png $(DESTDIR)$(pixmapdir)
+ # Automatically generate header dependencies with "make deps"
+ include deps.mak
+@@ -125,6 +122,7 @@
+ ifndef GTK2
+ 	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/gnome/apps/Applications/SciTE.desktop
+ endif
++	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
+ 	$(INSTALL) -m 644 -D Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
+ endif
  
- uninstall:
- 	rm -f $(bindir)/SciTE
