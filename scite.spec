@@ -6,6 +6,7 @@ Release:	1
 License:	BSD-like
 Group:		X11/Applications
 Source0:	http://scintilla.org/scite153.tgz
+# Source0-md5:	156275ae6318c323b308f403033663cd
 URL:		http://scintilla.org/SciTE.html
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
