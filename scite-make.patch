@@ -1,0 +1,58 @@
+--- scite-1.53/scite/gtk/makefile.orig	2003-05-02 13:42:54.000000000 +0200
++++ scite-1.53/scite/gtk/makefile	2003-05-25 19:20:12.000000000 +0200
+@@ -39,9 +39,9 @@
+ CXXBASEFLAGS=-W -Wall -DGTK -DSCI_LEXER -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS)
+ 
+ ifdef DEBUG
+-CXXFLAGS=-DDEBUG -g $(CXXBASEFLAGS)
++CXXFLAGS=-DDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
+ else
+-CXXFLAGS=-DNDEBUG -Os $(CXXBASEFLAGS)
++CXXFLAGS=-DNDEBUG $(OPTFLAGS) $(CXXBASEFLAGS)
+ endif
+ 
+ .cxx.o:
+@@ -55,12 +55,9 @@
+ deps:
+ 	$(CC) -MM `$(CONFIGFLAGS)` $(CXXFLAGS) *.cxx ../src/*.cxx >deps.mak
+ 
+-# make should be run in ../../scintilla/gtk to compile all the lexers.
+-LEXEROBJS=$(wildcard ../../scintilla/gtk/Lex*.o)
+-
+ $(PROG): SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o DirectorExtension.o \
+-SciTEProps.o Utf8_16.o $(LEXEROBJS) ../../scintilla/bin/scintilla.a
+-	$(CC) `$(CONFIGLIB)` `glib-config --libs gthread` -DGTK $^ -o $@
++SciTEProps.o Utf8_16.o
++	$(CC) `$(CONFIGLIB)` `glib-config --libs gthread` -DGTK $^ -o $@ -lscintilla
+ 
+ # SciTE-static no longer builds. Kept here in case of later need.
+ SciTE-static: SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o SciTEProps.o \
+@@ -74,17 +71,20 @@
+ # This is OK - just means no SciTE in the Gnome Applications menu
+ # Dead:	install -D SciTEGTK.properties $(SYSCONF_PATH)/SciTEGlobal.properties
+ install:
+-	install -s $(PROG) $(bindir)
+-	install -d $(SYSCONF_PATH)
+-	install ../src/*.properties $(SYSCONF_PATH)
+-	install ../doc/*.html $(SYSCONF_PATH)
+-	install ../doc/SciTEIco.png $(SYSCONF_PATH)
+-	install ../doc/PrintHi.png $(SYSCONF_PATH)
++	install -d $(DESTDIR)$(bindir)
++	install $(PROG) $(DESTDIR)$(bindir)
++	install -d $(DESTDIR)$(SYSCONF_PATH)
++	install ../src/*.properties $(DESTDIR)$(SYSCONF_PATH)
++	install ../doc/*.html $(DESTDIR)$(SYSCONF_PATH)
++	install ../doc/SciTEIco.png $(DESTDIR)$(SYSCONF_PATH)
++	install ../doc/PrintHi.png $(DESTDIR)$(SYSCONF_PATH)
+ ifndef GTK2
+-	install SciTE.desktop $(datadir)/gnome/apps/Applications
++	install -d $(DESTDIR)$(datadir)/applications
++	install SciTE.desktop $(DESTDIR)$(datadir)/applications
+ endif
+ ifdef gnomeprefix
+-	install Sci48M.png $(pixmapdir)
++	install -d $(DESTDIR)$(pixmapdir)
++	install Sci48M.png $(DESTDIR)$(pixmapdir)
+ endif
+ 
+ uninstall:
