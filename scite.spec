@@ -1,12 +1,12 @@
 #
 # Conditional build:
-%bcond_with gtk1	# use GTK+ 1.2 instead of 2.0
+%bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	SciTE - a programmers text editor
 Summary(pl):	SciTE - edytor tekstu dla programistów
 Name:		scite
 Version:	1.62
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
