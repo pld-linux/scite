@@ -1,0 +1,24 @@
+--- scite-1.61/scite/gtk/SciTE.desktop.orig	2004-07-30 13:40:39.414390792 +0200
++++ scite-1.61/scite/gtk/SciTE.desktop	2004-07-30 13:48:52.649407672 +0200
+@@ -1,10 +1,11 @@
+-
+-[Desktop Entry]
+-Name[en_US.ISO8859-1]=SciTE
+-Name=SciTE
+-Comment=SciTE Text Editor
+-Exec=SciTE
+-Icon=Sci48M.png
+-Terminal=false
+-MultipleArgs=false
+-Type=Application
++[Desktop Entry]
++Encoding=UTF-8
++Name=SciTE
++Comment=SciTE Text Editor
++Comment[pl]=Edytor tekstu SciTE
++Exec=SciTE
++Icon=Sci48M.png
++Terminal=false
++Type=Application
++Categories=GTK;TextEditor;
++# vi: encoding=utf-8
