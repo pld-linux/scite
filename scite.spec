@@ -46,7 +46,9 @@ i Apache'a.
 rm -rf $RPM_BUILD_ROOT
 
 %{__make} -C scite/gtk install \
-	DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT \
+	datadir=%{_datadir} \
+	pixmapdir=%{_pixmapsdir}
 
 install -d $RPM_BUILD_ROOT%{_mandir}/man1
 install scite/doc/scite.1 $RPM_BUILD_ROOT%{_mandir}/man1/SciTE.1

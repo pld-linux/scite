@@ -27,7 +27,7 @@
  
  # SciTE-static no longer builds. Kept here in case of later need.
  SciTE-static: SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o SciTEProps.o \
-@@ -74,17 +71,20 @@
+@@ -74,18 +71,17 @@
  # This is OK - just means no SciTE in the Gnome Applications menu
  # Dead:	install -D SciTEGTK.properties $(SYSCONF_PATH)/SciTEGlobal.properties
  install:
@@ -37,6 +37,12 @@
 -	install ../doc/*.html $(SYSCONF_PATH)
 -	install ../doc/SciTEIco.png $(SYSCONF_PATH)
 -	install ../doc/PrintHi.png $(SYSCONF_PATH)
+-ifndef GTK2
+-	install SciTE.desktop $(datadir)/gnome/apps/Applications
+-endif
+-ifdef gnomeprefix
+-	install Sci48M.png $(pixmapdir)
+-endif
 +	install -d $(DESTDIR)$(bindir)
 +	install $(PROG) $(DESTDIR)$(bindir)
 +	install -d $(DESTDIR)$(SYSCONF_PATH)
@@ -44,15 +50,10 @@
 +	install ../doc/*.html $(DESTDIR)$(SYSCONF_PATH)
 +	install ../doc/SciTEIco.png $(DESTDIR)$(SYSCONF_PATH)
 +	install ../doc/PrintHi.png $(DESTDIR)$(SYSCONF_PATH)
- ifndef GTK2
--	install SciTE.desktop $(datadir)/gnome/apps/Applications
 +	install -d $(DESTDIR)$(datadir)/applications
 +	install SciTE.desktop $(DESTDIR)$(datadir)/applications
- endif
- ifdef gnomeprefix
--	install Sci48M.png $(pixmapdir)
 +	install -d $(DESTDIR)$(pixmapdir)
 +	install Sci48M.png $(DESTDIR)$(pixmapdir)
- endif
  
  uninstall:
+ 	rm -f $(bindir)/SciTE
