@@ -16,5 +16,5 @@ diff -urN scite162.org/scite/gtk/SciTE.desktop scite162/scite/gtk/SciTE.desktop
 +Type=Application
  MultipleArgs=false
 -Categories=GNOME;Application;
-+Categories=GTK;TextEditor;
++Categories=GTK;Development;
 +# vi: encoding=utf-8
