@@ -1,5 +1,6 @@
---- scite-1.61/scite/gtk/makefile.orig	2004-07-29 21:14:01.293547008 +0000
-+++ scite-1.61/scite/gtk/makefile	2004-07-29 21:13:27.303714248 +0000
+diff -urN scite162.org/scite/gtk/makefile scite162/scite/gtk/makefile
+--- scite162.org/scite/gtk/makefile	2004-08-20 09:21:00.000000000 +0200
++++ scite162/scite/gtk/makefile	2004-11-23 22:20:05.481069583 +0100
 @@ -45,7 +45,7 @@
  bindir=$(prefix)/bin
  SYSCONF_PATH=$(prefix)/share/scite
@@ -21,25 +22,20 @@
  endif
  
  ifndef NO_LUA
-@@ -97,13 +97,10 @@
- deps:
- 	$(CC) -MM `$(CONFIGFLAGS)` $(CXXFLAGS) *.cxx ../src/*.cxx >deps.mak
+@@ -102,8 +102,8 @@
  
--# make should be run in ../../scintilla/gtk to compile all the lexers.
--COMPLIB=../../scintilla/bin/scintilla.a
--
  $(PROG): SciTEGTK.o SciTEBase.o SciTEBuffers.o SciTEIO.o Exporters.o \
  MultiplexExtension.o DirectorExtension.o SciTEProps.o Utf8_16.o \
 -	$(COMPLIB) $(LUA_OBJS)
--	$(CC) `$(CONFIGLIB)` `$(CONFIGTHREADS)` -DGTK $^ -o $@
+-	$(CC) `$(CONFIGTHREADS)` -DGTK $^ -o $@ `$(CONFIGLIB)`
 +	$(LUA_OBJS)
-+	$(CC) `$(CONFIGLIB)` `$(CONFIGTHREADS)` -DGTK $^ -o $@ -lscintilla
++	$(CC) `$(CONFIGTHREADS)` -DGTK $^ -o $@ `$(CONFIGLIB)` -lscintilla
  
  # Automatically generate header dependencies with "make deps"
  include deps.mak
-@@ -125,6 +122,7 @@
- ifndef GTK2
- 	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/gnome/apps/Applications/SciTE.desktop
+@@ -127,6 +127,7 @@
+ else
+ 	$(INSTALL) -m 755 -D SciTE.desktop $(DESTDIR)$(datadir)/gnome/apps/Applications/SciTE.desktop
  endif
 +	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
  	$(INSTALL) -m 644 -D Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
