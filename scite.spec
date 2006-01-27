@@ -16,6 +16,7 @@ Patch1:		%{name}-desktop.patch
 URL:		http://scintilla.org/SciTE.html
 %{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
 %{!?with_gtk1:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+BuildRequires:	libstdc++-devel
 BuildRequires:	scintilla-devel >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
