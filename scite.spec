@@ -3,7 +3,7 @@
 %bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	SciTE - a programmers text editor
-Summary(pl.UTF-8):   SciTE - edytor tekstu dla programistów
+Summary(pl.UTF-8):	SciTE - edytor tekstu dla programistów
 Name:		scite
 Version:	1.67
 Release:	1
