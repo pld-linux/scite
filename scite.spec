@@ -3,7 +3,7 @@
 %bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
 #
 Summary:	SciTE - a programmers text editor
-Summary(pl):	SciTE - edytor tekstu dla programistów
+Summary(pl.UTF-8):   SciTE - edytor tekstu dla programistÃ³w
 Name:		scite
 Version:	1.67
 Release:	1
@@ -26,11 +26,11 @@ highlighting, and shortcuts in a myriad of languages and can be
 extended by editing object-oriented configuration files. Support is
 included for Java, C, C++, C#, Shell, Apache.
 
-%description -l pl
-SciTE to graficzny edytor oparty o GTK+. Obs³uguje wciêcia,
-pod¶wietlanie sk³adni oraz skróty klawiszowe dla wielu jêzyków,
-ponadto mo¿e byæ rozszerzany poprzez edycjê zorientowanych obiektowo
-plików konfiguracyjnych. Zawiera wsparcie dla Javy, C, C++, C#, shella
+%description -l pl.UTF-8
+SciTE to graficzny edytor oparty o GTK+. ObsÅ‚uguje wciÄ™cia,
+podÅ›wietlanie skÅ‚adni oraz skrÃ³ty klawiszowe dla wielu jÄ™zykÃ³w,
+ponadto moÅ¼e byÄ‡ rozszerzany poprzez edycjÄ™ zorientowanych obiektowo
+plikÃ³w konfiguracyjnych. Zawiera wsparcie dla Javy, C, C++, C#, shella
 i Apache'a.
 
 %prep
