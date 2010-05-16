@@ -1,5 +1,5 @@
---- scite-1.76/scite/gtk/makefile	2007-12-01 01:27:26.000000000 +0100
-+++ scite-1.76/scite/gtk/makefile-new	2008-03-30 14:47:49.000000000 +0200
+--- scite-2.11/scite/gtk/makefile	2010-03-14 01:41:15.000000000 +0000
++++ scite-2.11/scite/gtk/makefile	2010-05-16 23:34:00.000000000 +0000
 @@ -56,12 +56,12 @@
  
  #CXXFLAGS= -g -DGTK -DSCI_LEXER -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" -Wwrite-strings
@@ -18,8 +18,8 @@
  ifndef NO_LUA
 @@ -102,8 +102,8 @@
  
- $(PROG): SciTEGTK.o FilePath.o SciTEBase.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o \
- PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o Utf8_16.o \
+ $(PROG): SciTEGTK.o GUIGTK.o FilePath.o SciTEBase.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o \
+ PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleWriter.o Utf8_16.o \
 -	JobQueue.o GTKMutex.o IFaceTable.o $(COMPLIB) $(LUA_OBJS)
 -	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB)
 +	JobQueue.o GTKMutex.o IFaceTable.o $(LUA_OBJS)

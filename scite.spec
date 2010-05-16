@@ -1,21 +1,16 @@
-#
-# Conditional build:
-%bcond_with	gtk1	# use GTK+ 1.2 instead of 2.0
-#
 Summary:	SciTE - a programmers text editor
 Summary(pl.UTF-8):	SciTE - edytor tekstu dla programistów
 Name:		scite
-Version:	2.01
+Version:	2.11
 Release:	1
 License:	BSD-like
 Group:		X11/Applications
 Source0:	http://dl.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
-# Source0-md5:	ef4b6b4d903c29e4ab511488a0d20f46
+# Source0-md5:	129aad231c9618aaa2c2e41226db2327
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://scintilla.org/SciTE.html
-%{?with_gtk1:BuildRequires:	gtk+-devel >= 1.2.0}
-%{!?with_gtk1:BuildRequires:	gtk+2-devel >= 1:2.0.0}
+BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	scintilla-devel >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -42,8 +37,7 @@ i Apache'a.
 %{__make} -C scite/gtk \
 	CC="%{__cxx}" \
 	OPTFLAGS="%{rpmcflags}" \
-	%{?debug:DEBUG=1} \
-	%{!?with_gtk1:GTK2=1}
+	%{?debug:DEBUG=1}
 
 %install
 rm -rf $RPM_BUILD_ROOT
