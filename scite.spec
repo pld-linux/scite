@@ -1,17 +1,19 @@
 Summary:	SciTE - a programmers text editor
 Summary(pl.UTF-8):	SciTE - edytor tekstu dla programistów
 Name:		scite
-Version:	2.11
+Version:	2.27
 Release:	1
 License:	BSD-like
 Group:		X11/Applications
-Source0:	http://dl.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
-# Source0-md5:	129aad231c9618aaa2c2e41226db2327
+Source0:	http://downloads.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
+# Source0-md5:	ac5aafa1b47da3792a56d5fd9f383fda
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://scintilla.org/SciTE.html
 BuildRequires:	gtk+2-devel >= 1:2.0.0
 BuildRequires:	libstdc++-devel
+BuildRequires:	lua51-devel
+BuildRequires:	pkgconfig
 BuildRequires:	scintilla-devel >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -25,8 +27,8 @@ included for Java, C, C++, C#, Shell, Apache.
 SciTE to graficzny edytor oparty o GTK+. Obsługuje wcięcia,
 podświetlanie składni oraz skróty klawiszowe dla wielu języków,
 ponadto może być rozszerzany poprzez edycję zorientowanych obiektowo
-plików konfiguracyjnych. Zawiera wsparcie dla Javy, C, C++, C#, shella
-i Apache'a.
+plików konfiguracyjnych. Zawiera wsparcie dla Javy, C, C++, C#,
+powłoki uniksowej i Apache'a.
 
 %prep
 %setup -q -c
@@ -59,5 +61,5 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/SciTE
 %{_datadir}/scite
 %{_mandir}/man1/SciTE.1*
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*.png
+%{_desktopdir}/SciTE.desktop
+%{_pixmapsdir}/Sci48M.png

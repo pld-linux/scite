@@ -1,11 +1,7 @@
---- scite-2.11/scite/gtk/makefile	2010-03-14 01:41:15.000000000 +0000
-+++ scite-2.11/scite/gtk/makefile	2010-05-16 23:34:00.000000000 +0000
-@@ -56,12 +56,12 @@
- 
- #CXXFLAGS= -g -DGTK -DSCI_LEXER -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" -Wwrite-strings
- INCLUDEDIRS=-I ../../scintilla/include -I ../src
--CXXBASEFLAGS=-W -Wall -Wno-char-subscripts -pedantic -Os -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS)
-+CXXBASEFLAGS=-W -Wall -Wno-char-subscripts -pedantic -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS)
+--- scite-2.27/scite/gtk/makefile.orig	2011-06-14 02:55:05.000000000 +0200
++++ scite-2.27/scite/gtk/makefile	2011-06-23 12:31:51.409587426 +0200
+@@ -53,9 +53,9 @@
+ CXXBASEFLAGS=-W -Wall -Wno-char-subscripts -pedantic -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS) $(DEPRECATED)
  
  ifdef DEBUG
 -CXXTFLAGS=-DDEBUG -g $(CXXBASEFLAGS)
@@ -16,26 +12,29 @@
  endif
  
  ifndef NO_LUA
-@@ -102,8 +102,8 @@
+@@ -94,13 +94,13 @@
+ 	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
  
- $(PROG): SciTEGTK.o GUIGTK.o FilePath.o SciTEBase.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o \
+ # make should be run in ../../scintilla/gtk to compile all the lexers.
+-COMPLIB=../../scintilla/bin/scintilla.a
++COMPLIB=-lscintilla
+ 
+ $(PROG): SciTEGTK.o GUIGTK.o Widget.o \
+ FilePath.o SciTEBase.o Credits.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o StringHelpers.o \
  PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleWriter.o Utf8_16.o \
 -	JobQueue.o GTKMutex.o IFaceTable.o $(COMPLIB) $(LUA_OBJS)
--	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB)
-+	JobQueue.o GTKMutex.o IFaceTable.o $(LUA_OBJS)
-+	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) -lscintilla
+-	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) -ldl -lstdc++
++	JobQueue.o GTKMutex.o IFaceTable.o LuaExtension.o
++	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(COMPLIB) $(CONFIGLIB) -ldl -lstdc++ -llua51
  
  # Automatically generate header dependencies with "make deps"
  include deps.mak
-@@ -123,9 +123,9 @@
+@@ -119,7 +119,7 @@
+ 	done
  
  ifdef gnomeprefix
- ifdef GTK2
 -	$(INSTALL) -m 755 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
 +	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
- else
--	$(INSTALL) -m 755 -D SciTE.desktop $(DESTDIR)$(datadir)/gnome/apps/Applications/SciTE.desktop
-+	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/gnome/apps/Applications/SciTE.desktop
- endif
  	$(INSTALL) -m 644 -D Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
  endif
+ 
