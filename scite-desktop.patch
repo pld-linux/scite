@@ -1,23 +1,25 @@
---- scite-1.76/scite/gtk/SciTE.desktop.orig	2006-08-28 03:49:27.000000000 +0200
-+++ scite-1.76/scite/gtk/SciTE.desktop	2008-03-30 15:22:36.000000000 +0200
-@@ -1,16 +1,16 @@
+--- scite-2.29/scite/gtk/SciTE.desktop.orig	2014-11-14 22:57:42.645606118 +0100
++++ scite-2.29/scite/gtk/SciTE.desktop	2014-11-14 23:00:48.102265000 +0100
+@@ -1,19 +1,19 @@
  [Desktop Entry]
  Encoding=UTF-8
 -Version=1.0
  Name=SciTE Text Editor
  Name[es]=Editor de textos SciTE
  Name[fr]=Éditeur de texte SciTE
++Name[pl]=Edytor tekstu SciTE
+ Name[ru]=Текстовый редактор SciTE
  Comment=Edit your source files
  Comment[es]=Edita especializado para programación
  Comment[fr]=Éditer des fichiers sources
--GenericName=Text Editor
++Comment[pl]=Edycja plików źródłowych
+ Comment[ru]=Редактор исходных кодов
+ GenericName=Text Editor
 -Type=Application
-+Comment[pl]=Edytor tekstu SciTE
  Exec=SciTE %F
  Icon=Sci48M.png
  Terminal=false
-+Type=Application
  StartupNotify=true
 -Categories=TextEditor;Development;GTK;Application;
 +Categories=GTK;Development;
-+# vi: encoding=utf-8
+ MimeType=text/plain;

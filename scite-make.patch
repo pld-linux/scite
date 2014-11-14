@@ -1,5 +1,5 @@
---- scite-2.27/scite/gtk/makefile.orig	2011-06-14 02:55:05.000000000 +0200
-+++ scite-2.27/scite/gtk/makefile	2011-06-23 12:31:51.409587426 +0200
+--- scite-2.29/scite/gtk/makefile.orig	2011-09-16 11:14:07.000000000 +0200
++++ scite-2.29/scite/gtk/makefile	2014-11-14 22:56:55.212274774 +0100
 @@ -53,9 +53,9 @@
  CXXBASEFLAGS=-W -Wall -Wno-char-subscripts -pedantic -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS) $(DEPRECATED)
  
@@ -12,7 +12,7 @@
  endif
  
  ifndef NO_LUA
-@@ -94,13 +94,13 @@
+@@ -99,13 +99,13 @@
  	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
  
  # make should be run in ../../scintilla/gtk to compile all the lexers.
@@ -23,18 +23,18 @@
  FilePath.o SciTEBase.o Credits.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o StringHelpers.o \
  PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleWriter.o Utf8_16.o \
 -	JobQueue.o GTKMutex.o IFaceTable.o $(COMPLIB) $(LUA_OBJS)
--	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) -ldl -lstdc++
+-	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) $(LIBDL) -lstdc++
 +	JobQueue.o GTKMutex.o IFaceTable.o LuaExtension.o
-+	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(COMPLIB) $(CONFIGLIB) -ldl -lstdc++ -llua51
++	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(COMPLIB) $(CONFIGLIB) $(LIBDL) -lstdc++ -llua51
  
  # Automatically generate header dependencies with "make deps"
  include deps.mak
-@@ -119,7 +119,7 @@
- 	done
+@@ -125,7 +125,7 @@
  
  ifdef gnomeprefix
--	$(INSTALL) -m 755 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
-+	$(INSTALL) -m 644 -D SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
- 	$(INSTALL) -m 644 -D Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
+ 	$(INSTALL) -m 755 -d $(DESTDIR)$(datadir)/applications $(DESTDIR)$(pixmapdir)
+-	$(INSTALL) -m 755 SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
++	$(INSTALL) -m 644 SciTE.desktop $(DESTDIR)$(datadir)/applications/SciTE.desktop
+ 	$(INSTALL) -m 644 Sci48M.png $(DESTDIR)$(pixmapdir)/Sci48M.png
  endif
  

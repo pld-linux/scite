@@ -1,12 +1,12 @@
 Summary:	SciTE - a programmers text editor
 Summary(pl.UTF-8):	SciTE - edytor tekstu dla programistów
 Name:		scite
-Version:	2.27
+Version:	2.29
 Release:	1
 License:	BSD-like
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
-# Source0-md5:	ac5aafa1b47da3792a56d5fd9f383fda
+# Source0-md5:	55858b96c4ad64b38503682ff49d184e
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://scintilla.org/SciTE.html
