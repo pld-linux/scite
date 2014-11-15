@@ -1,20 +1,21 @@
 Summary:	SciTE - a programmers text editor
 Summary(pl.UTF-8):	SciTE - edytor tekstu dla programistów
 Name:		scite
-Version:	2.29
+Version:	3.5.1
 Release:	1
 License:	BSD-like
 Group:		X11/Applications
 Source0:	http://downloads.sourceforge.net/scintilla/scite%(echo %{version} | tr -d .).tgz
-# Source0-md5:	55858b96c4ad64b38503682ff49d184e
+# Source0-md5:	e981452d454f1afe22be64616ba064d8
 Patch0:		%{name}-make.patch
 Patch1:		%{name}-desktop.patch
 URL:		http://scintilla.org/SciTE.html
-BuildRequires:	gtk+2-devel >= 1:2.0.0
+BuildRequires:	gtk+3-devel >= 3.0
 BuildRequires:	libstdc++-devel
 BuildRequires:	lua51-devel
 BuildRequires:	pkgconfig
 BuildRequires:	scintilla-devel >= %{version}
+Requires:	scintilla >= %{version}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,9 +38,10 @@ powłoki uniksowej i Apache'a.
 
 %build
 %{__make} -C scite/gtk \
-	CC="%{__cxx}" \
+	CXX="%{__cxx}" \
 	OPTFLAGS="%{rpmcflags}" \
-	%{?debug:DEBUG=1}
+	%{?debug:DEBUG=1} \
+	GTK3=1
 
 %install
 rm -rf $RPM_BUILD_ROOT

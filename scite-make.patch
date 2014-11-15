@@ -1,7 +1,7 @@
---- scite-2.29/scite/gtk/makefile.orig	2011-09-16 11:14:07.000000000 +0200
-+++ scite-2.29/scite/gtk/makefile	2014-11-14 22:56:55.212274774 +0100
+--- scite-3.5.1/scite/gtk/makefile.orig	2014-08-10 01:52:11.000000000 +0200
++++ scite-3.5.1/scite/gtk/makefile	2014-11-15 20:17:31.105716944 +0100
 @@ -53,9 +53,9 @@
- CXXBASEFLAGS=-W -Wall -Wno-char-subscripts -pedantic -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS) $(DEPRECATED)
+ CXXBASEFLAGS=-W -Wall -pedantic -DGTK -DSCI_LEXER -DPIXMAP_PATH=\"$(pixmapdir)\" -DSYSCONF_PATH=\"$(SYSCONF_PATH)\" $(INCLUDEDIRS) $(DEPRECATED)
  
  ifdef DEBUG
 -CXXTFLAGS=-DDEBUG -g $(CXXBASEFLAGS)
@@ -12,24 +12,25 @@
  endif
  
  ifndef NO_LUA
-@@ -99,13 +99,13 @@
- 	$(CC) -MM $(CONFIGFLAGS) $(CXXFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
+@@ -107,14 +107,14 @@
+ 	$(CXX) -MM $(CONFIGFLAGS) $(CXXTFLAGS) *.cxx ../src/*.cxx | sed -e 's/\/usr.* //' | grep [a-zA-Z] >deps.mak
  
  # make should be run in ../../scintilla/gtk to compile all the lexers.
 -COMPLIB=../../scintilla/bin/scintilla.a
 +COMPLIB=-lscintilla
  
  $(PROG): SciTEGTK.o GUIGTK.o Widget.o \
- FilePath.o SciTEBase.o Credits.o SciTEBuffers.o SciTEIO.o StringList.o Exporters.o StringHelpers.o \
- PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleWriter.o Utf8_16.o \
+ FilePath.o SciTEBase.o FileWorker.o Cookie.o Credits.o SciTEBuffers.o SciTEIO.o StringList.o \
+ Exporters.o  MatchMarker.o StringHelpers.o \
+ PropSetFile.o MultiplexExtension.o DirectorExtension.o SciTEProps.o StyleDefinition.o StyleWriter.o Utf8_16.o \
 -	JobQueue.o GTKMutex.o IFaceTable.o $(COMPLIB) $(LUA_OBJS)
--	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) $(LIBDL) -lstdc++
+-	$(CXX) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(CONFIGLIB) $(LIBDL) -lm -lstdc++
 +	JobQueue.o GTKMutex.o IFaceTable.o LuaExtension.o
-+	$(CC) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(COMPLIB) $(CONFIGLIB) $(LIBDL) -lstdc++ -llua51
++	$(CXX) `$(CONFIGTHREADS)` -rdynamic -Wl,--as-needed -Wl,--version-script lua.vers -DGTK $^ -o $@ $(COMPLIB) $(CONFIGLIB) $(LIBDL) -lm -lstdc++ -llua51
  
  # Automatically generate header dependencies with "make deps"
  include deps.mak
-@@ -125,7 +125,7 @@
+@@ -134,7 +134,7 @@
  
  ifdef gnomeprefix
  	$(INSTALL) -m 755 -d $(DESTDIR)$(datadir)/applications $(DESTDIR)$(pixmapdir)

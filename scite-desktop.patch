@@ -1,5 +1,5 @@
---- scite-2.29/scite/gtk/SciTE.desktop.orig	2014-11-14 22:57:42.645606118 +0100
-+++ scite-2.29/scite/gtk/SciTE.desktop	2014-11-14 23:00:48.102265000 +0100
+--- scite-3.5.1/scite/gtk/SciTE.desktop.orig	2014-11-15 20:18:17.155715011 +0100
++++ scite-3.5.1/scite/gtk/SciTE.desktop	2014-11-15 20:19:35.615711719 +0100
 @@ -1,19 +1,19 @@
  [Desktop Entry]
  Encoding=UTF-8
@@ -17,9 +17,9 @@
  GenericName=Text Editor
 -Type=Application
  Exec=SciTE %F
- Icon=Sci48M.png
+ Icon=Sci48M
  Terminal=false
  StartupNotify=true
 -Categories=TextEditor;Development;GTK;Application;
-+Categories=GTK;Development;
+++Categories=GTK;Development;
  MimeType=text/plain;
